@@ -9,6 +9,7 @@ import ObjectComponents.Component;
 import Entity.Entity;
 import Shaders.Shader;
 import Shaders.TestShader;
+import Vectors.vec2f;
 
 import java.util.*;
 
@@ -24,12 +25,16 @@ public class Renderer {
         System.out.println(glGetString(GL_SHADING_LANGUAGE_VERSION));
 
         Shader shader = new TestShader();
-        Entity test = new Entity(shader);
 
-        Component component = new BasicController();
-        test.addComponent(component);
+        Entity test = new Entity(shader);
+        Entity test1 = new Entity(shader);
+        test1.setPosition(new vec2f(0.0f, 0.8f));
+
+        test.addComponent(new BasicController());
+        test1.addComponent(new BasicController());
 
         addToRenderQueue(test);
+        addToRenderQueue(test1);
     }
 
     public static void loop(){

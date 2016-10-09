@@ -2,7 +2,6 @@ package Entity;
 
 import ObjectComponents.Component;
 import Shaders.Shader;
-import Shaders.TestShader;
 import Vectors.*;
 import org.lwjgl.BufferUtils;
 
@@ -96,6 +95,10 @@ public class Entity {
     public void addComponent(Component component){
         components.add(component);
         component.init(this);
+    }
+
+    public void setPosition(vec2f position) {
+        this.position = position;
     }
 
     public vec3f getColor() {
