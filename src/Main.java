@@ -1,4 +1,4 @@
-import org.lwjgl.*;
+import Renderer.Renderer;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 
