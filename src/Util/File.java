@@ -19,7 +19,7 @@ public class File {
 
             while (line != null) {
                 sb.append(line);
-                sb.append(System.lineSeparator());
+                sb.append('\n');
                 line = br.readLine();
             }
             source = sb.toString();

@@ -1,6 +1,8 @@
 package Shaders;
 
 import Util.File;
+import Vectors.vec2f;
+import Vectors.vec3f;
 
 import java.io.IOException;
 
@@ -11,10 +13,13 @@ import static org.lwjgl.opengl.GL20.*;
  * Created by lipnican on 09/10/2016.
  */
 
-public class Shader {
+abstract public class Shader {
     private int programID;
     private int fragmentShaderID;
     private int vertexShaderID;
+
+    private int position_location;
+    private int color_location;
 
     public Shader(String vs_filename, String frag_filename){
 
@@ -39,17 +44,33 @@ public class Shader {
             // Check for linking errors
             if (glGetProgrami(programID, GL_LINK_STATUS) == GL_FALSE)
                 throw new RuntimeException("Unable to link shader program:");
+
+            glDetachShader(programID, vertexShaderID);
+            glDetachShader(programID, fragmentShaderID);
+
+            glDeleteShader(vertexShaderID);
+            glDeleteShader(fragmentShaderID);
+
+            position_location = glGetUniformLocation(programID, "position");
+            color_location = glGetUniformLocation(programID, "color");
+
         }
 
     }
 
+    public void setColor(vec3f color){
+        glUniform3f(color_location, color.x, color.y, color.z);
+    }
+
+    public void setPoition(vec2f position){
+        glUniform2f(position_location, position.x, position.y);
+    }
+
+    public void update(){
+
+    }
+
     public void delete(){
-        glDetachShader(programID, vertexShaderID);
-        glDetachShader(programID, fragmentShaderID);
-
-        glDeleteShader(vertexShaderID);
-        glDeleteShader(fragmentShaderID);
-
         glDeleteProgram(programID);
     }
 

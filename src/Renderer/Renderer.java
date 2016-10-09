@@ -7,23 +7,38 @@ package Renderer; /**
 import ObjectComponents.BasicController;
 import ObjectComponents.Component;
 import Entity.Entity;
+import Shaders.Shader;
+import Shaders.TestShader;
 
 import java.util.*;
+
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL20.*;
 
 public class Renderer {
 
     private static List<Entity> renderQueue = new ArrayList<Entity>();
 
     public static void init(){
-        Entity test = new Entity();
+
+        System.out.println(glGetString(GL_SHADING_LANGUAGE_VERSION));
+
+        Shader shader = new TestShader();
+        Entity test = new Entity(shader);
+
         Component component = new BasicController();
         test.addComponent(component);
+
+        addToRenderQueue(test);
     }
 
     public static void loop(){
-        for (int i = 0; i < renderQueue.size(); i++){
-            renderQueue.get(i).update();
-            renderQueue.get(i).render();
+        for(Entity entity : renderQueue){
+            entity.update();
+        }
+
+        for (Entity entity : renderQueue) {
+            entity.render();
         }
     }
 
