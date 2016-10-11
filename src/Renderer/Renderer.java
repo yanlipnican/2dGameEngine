@@ -5,7 +5,6 @@ package Renderer; /**
  */
 
 import ObjectComponents.BasicController;
-import ObjectComponents.Component;
 import Entity.Entity;
 import Shaders.Shader;
 import Shaders.TestShader;
@@ -15,29 +14,35 @@ import java.util.*;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL20.*;
+import static org.lwjgl.opengl.GL30.glBindFramebuffer;
+import static org.lwjgl.opengles.GLES20.GL_FRAMEBUFFER;
 
 public class Renderer {
 
     private static List<Entity> renderQueue = new ArrayList<Entity>();
 
-    public static void init(){
+    public static int width = 640;
+    public static int height = 420;
 
-        System.out.println(glGetString(GL_SHADING_LANGUAGE_VERSION));
+    private static FrameBuffer fb = new FrameBuffer();
+
+    public static void init() {
 
         Shader shader = new TestShader();
 
         Entity test = new Entity(shader);
-        Entity test1 = new Entity(shader);
-        test1.setPosition(new vec2f(0.0f, 0.8f));
 
         test.addComponent(new BasicController());
-        test1.addComponent(new BasicController());
 
         addToRenderQueue(test);
-        addToRenderQueue(test1);
+
     }
 
     public static void loop(){
+
+        fb.bind();
+        fb.clear();
+
         for(Entity entity : renderQueue){
             entity.update();
         }
@@ -45,6 +50,15 @@ public class Renderer {
         for (Entity entity : renderQueue) {
             entity.render();
         }
+
+        bindScreenBuffer();
+
+        fb.render();
+    }
+
+    public static void bindScreenBuffer(){
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        glViewport(0,0,width,height);
     }
 
     public static void addToRenderQueue(Entity entity){

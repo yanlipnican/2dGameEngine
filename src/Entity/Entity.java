@@ -68,7 +68,7 @@ public class Entity {
         glUseProgram(shader.getID());
 
         shader.setColor(color);
-        shader.setPoition(position);
+        shader.setPosition(position);
 
         // Bind the vertex array and enable our location
         glBindVertexArray(vaoID);

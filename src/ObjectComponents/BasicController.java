@@ -17,14 +17,14 @@ public class BasicController extends Controller {
         color.x += 0.001f;
 
         super.entity.move(new vec2f(-0.001f, 0.0f));
+
         super.entity.setColor(color);
     }
 
     @Override
     public void init(Entity entity) {
         super.init(entity);
-
         super.entity.setColor(new vec3f(1.0f, 0.0f, 0.0f));
-        System.out.println(super.entity.getColor().x);
+
     }
 }

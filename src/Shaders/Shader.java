@@ -62,7 +62,7 @@ abstract public class Shader {
         glUniform3f(color_location, color.x, color.y, color.z);
     }
 
-    public void setPoition(vec2f position){
+    public void setPosition(vec2f position){
         glUniform2f(position_location, position.x, position.y);
     }
 

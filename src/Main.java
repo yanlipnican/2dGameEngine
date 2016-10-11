@@ -13,6 +13,10 @@ public class Main {
     // The window handle
     private long window;
 
+    public static int WIDTH = 640;
+    public static int HEIGHT = 420;
+
+
     public void run() {
         try {
             init();
@@ -47,9 +51,6 @@ public class Main {
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-        int WIDTH = 640;
-        int HEIGHT = 420;
 
         // Create the window
         window = glfwCreateWindow(WIDTH, HEIGHT, "Hello World!", NULL, NULL);
