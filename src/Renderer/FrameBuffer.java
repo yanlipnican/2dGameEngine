@@ -4,15 +4,8 @@ import Shaders.FrameBufferShader;
 import Shaders.Shader;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL20;
-import org.lwjgl.opengl.GL30;
-
-import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
-
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL15.*;
-import static org.lwjgl.opengl.GL15.GL_ARRAY_BUFFER;
-import static org.lwjgl.opengl.GL15.GL_STATIC_DRAW;
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.*;
 import static org.lwjgl.opengl.GL32.glFramebufferTexture;
@@ -25,8 +18,7 @@ public class FrameBuffer {
 
     private int bufferID;
     private int textureID;
-    private int vaoID;
-    private int vboID;
+    private Vao VAO;
     private Shader shader;
 
     private float[] quad = new float[] {
@@ -40,12 +32,13 @@ public class FrameBuffer {
 
     public FrameBuffer() {
 
+        shader = new FrameBufferShader();
+        VAO = new Vao();
+
         createFrameBuffer();
         createTexture();
         drawBuffers();
         createQuad();
-
-        this.shader = new FrameBufferShader();
 
     }
 
@@ -57,19 +50,14 @@ public class FrameBuffer {
 
         glUseProgram(shader.getID());
 
-        int texID = glGetUniformLocation(shader.getID(), "renderedTexture");
+        VAO.bind();
+        VAO.enableLocations();
 
         glBindTexture(GL_TEXTURE_2D, textureID);
 
-        // Bind the vertex array and enable our location
-        glBindVertexArray(vaoID);
-        glEnableVertexAttribArray(0);
-
         glDrawArrays(GL_TRIANGLES, 0, quad.length);
 
-        // Disable our location
-        glDisableVertexAttribArray(0);
-        glBindVertexArray(0);
+        VAO.disableLocations();
 
     }
 
@@ -79,30 +67,7 @@ public class FrameBuffer {
     }
 
     private void createQuad() {
-        vaoID = glGenVertexArrays();
-        glBindVertexArray(vaoID);
-
-        FloatBuffer verticesBuffer = BufferUtils.createFloatBuffer(quad.length);
-        verticesBuffer.put(quad).flip();
-
-        vboID = glGenBuffers();
-        glBindBuffer(GL_ARRAY_BUFFER, vboID);
-        glBufferData(GL_ARRAY_BUFFER, verticesBuffer, GL_STATIC_DRAW);
-
-        glVertexAttribPointer(0, 2, GL_FLOAT, false, 0, 0);
-
-//        Bind to VAO
-//        glBindVertexArray(vaoID);
-//        int tex_vboID = glGenBuffers();
-//        FloatBuffer texBuffer = BufferUtils.createFloatBuffer(quad_texture.length);
-//        verticesBuffer.put(quad_texture).flip();
-//        glBindBuffer(GL_ARRAY_BUFFER, tex_vboID);
-//        glBufferData(GL_ARRAY_BUFFER, texBuffer, GL_STATIC_DRAW);
-//        glVertexAttribPointer(1, 2, GL_FLOAT, false, 0, 0);
-//        glBindVertexArray(0)
-
-
-        glBindVertexArray(0);
+        VAO.createVBO(quad, 0, 2);
     }
 
     private void createFrameBuffer(){
@@ -124,8 +89,6 @@ public class FrameBuffer {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
-
-
 
         glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, textureID, 0);
 

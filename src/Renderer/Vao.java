@@ -1,5 +1,16 @@
 package Renderer;
 
+import org.lwjgl.BufferUtils;
+
+import java.nio.FloatBuffer;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.lwjgl.opengl.GL11.GL_FLOAT;
+import static org.lwjgl.opengl.GL15.*;
+import static org.lwjgl.opengl.GL20.glDisableVertexAttribArray;
+import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
+import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
@@ -10,19 +21,48 @@ public class Vao {
 
     private int ID;
 
+    // TODO : create list of VBO locations and when binding VAO bind enable all VBO locations
+    private List<Integer> locations = new ArrayList<Integer>();
+
     public Vao() {
         ID = glGenVertexArrays();
     }
 
-    public void bindVBO() {
+    public void bind(){
         glBindVertexArray(ID);
+    }
+
+    public void enableLocations(){
+        for(int location : locations){
+            glEnableVertexAttribArray(location);
+        }
+    }
+
+    public void disableLocations(){
+        for(int location : locations){
+            glDisableVertexAttribArray(location);
+        }
+    }
+
+    public int id(){
+        return ID;
+    }
+
+    public void createVBO(float[] data, int location,int VertexSize) {
+
+        glBindVertexArray(ID);
+
         int vboID = glGenBuffers();
-        FloatBuffer texBuffer = BufferUtils.createFloatBuffer(quad_texture.length);
-        verticesBuffer.put(quad_texture).flip();
-        glBindBuffer(GL_ARRAY_BUFFER, tex_vboID);
-        glBufferData(GL_ARRAY_BUFFER, texBuffer, GL_STATIC_DRAW);
-        glVertexAttribPointer(1, 2, GL_FLOAT, false, 0, 0);
-        glBindVertexArray(0)
+        locations.add(location);
+
+        FloatBuffer Buffer = BufferUtils.createFloatBuffer(data.length);
+        Buffer.put(data).flip();
+
+        glBindBuffer(GL_ARRAY_BUFFER, vboID);
+        glBufferData(GL_ARRAY_BUFFER, Buffer, GL_STATIC_DRAW);
+        glVertexAttribPointer(location, VertexSize, GL_FLOAT, false, 0, 0);
+        glDisableVertexAttribArray(vboID);
+        glBindVertexArray(0);
     }
 
 }
