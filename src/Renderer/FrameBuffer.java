@@ -6,6 +6,8 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL20;
 import java.nio.IntBuffer;
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL15.GL_ELEMENT_ARRAY_BUFFER;
+import static org.lwjgl.opengl.GL15.glBindBuffer;
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.*;
 import static org.lwjgl.opengl.GL32.glFramebufferTexture;
@@ -20,19 +22,32 @@ public class FrameBuffer {
     private int textureID;
     private Vao VAO;
     private Shader shader;
+    private int indicesBufferID;
 
     private float[] quad = new float[] {
-            -1.0f, -1.0f,
-            1.0f, -1.0f,
-            -1.0f,  1.0f,
-            1.0f, 1.0f,
             -1.0f, 1.0f,
-            1.0f, -1.0f
+            1.0f, 1.0f,
+            1.0f, -1.0f,
+            -1.0f, -1.0f
+    };
+
+    private int[] indices = new int[] {
+            0, 1, 2,
+            2, 3, 0
+    };
+
+    // tex coords has different coord system from vertices
+    private float[] texCoords = new float[] {
+            0, 1,
+            1, 1,
+            1, 0,
+            0, 0,
     };
 
     public FrameBuffer() {
 
         shader = new FrameBufferShader();
+        indicesBufferID = Vao.createIntElementBuffer(indices);
         VAO = new Vao();
 
         createFrameBuffer();
@@ -55,7 +70,15 @@ public class FrameBuffer {
 
         glBindTexture(GL_TEXTURE_2D, textureID);
 
-        glDrawArrays(GL_TRIANGLES, 0, quad.length);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indicesBufferID);
+
+        // draw without indices
+        //glDrawArrays(GL_TRIANGLES, 0, quad.length);
+
+        // with indices
+        glDrawElements(GL_TRIANGLES, indices.length, GL_UNSIGNED_INT, 0);
+
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
         VAO.disableLocations();
 
@@ -68,6 +91,7 @@ public class FrameBuffer {
 
     private void createQuad() {
         VAO.createVBO(quad, 0, 2);
+        VAO.createVBO(texCoords, 1, 2);
     }
 
     private void createFrameBuffer(){

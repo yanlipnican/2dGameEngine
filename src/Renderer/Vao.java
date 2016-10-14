@@ -65,4 +65,14 @@ public class Vao {
         glBindVertexArray(0);
     }
 
+    public static int createIntElementBuffer(int[] elements) {
+        int ID = glGenBuffers();;
+
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ID);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, elements, GL_STATIC_DRAW);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+        return ID;
+    }
+
 }
