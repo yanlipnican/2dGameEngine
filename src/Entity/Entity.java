@@ -26,11 +26,13 @@ public class Entity {
     private int indicesBufferID;
     private TextureMap texture;
 
+    private vec2f size = new vec2f(0.5f, 0.5f);
+
     private float[] quad = new float[] {
             -1.0f, 1.0f,
-            1.0f, 1.0f,
-            1.0f, -1.0f,
-            -1.0f, -1.0f
+            -1.0f + size.x*(Renderer.ratio), 1.0f,// up right
+            -1.0f + size.x*(Renderer.ratio), 1.0f - size.y ,// down right
+            -1.0f, 1.0f - size.y // down left
     };
 
     private int[] indices = new int[] {
@@ -50,7 +52,7 @@ public class Entity {
 
     public Entity(Shader shader){
         color = new vec3f(0.0f, 0.0f, 0.0f);
-        position = new vec2f(0.0f, 0.0f);
+        position = new vec2f(1.0f, 1.0f);
         this.shader = shader;
         texture = new TextureMap("res/images/test3.png");
 

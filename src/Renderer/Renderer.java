@@ -23,6 +23,7 @@ public class Renderer {
 
     public static int width = 640;
     public static int height = 420;
+    public static float ratio = (float)height/(float)width;
 
     private static FrameBuffer fb = new FrameBuffer();
 
