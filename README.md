@@ -1,4 +1,4 @@
-LWJGL 2d engine project in Java
+OpenGL LWJGL 2d engine project in Java from scratch.
 
 Mac OS
 -----
