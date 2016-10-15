@@ -10,6 +10,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 public class Main {
 
+    private static final int FPS_CAP = 120;
     // The window handle
     private long window;
 
@@ -91,17 +92,32 @@ public class Main {
         glClearColor(0.0f, 0.3f,0.6f, 0.0f);
     }
 
+    private long startTime;
+    private float delta;
+
     private void loop() {
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
-        while ( !glfwWindowShouldClose(window) ) {
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
-            Renderer.loop();
-            glfwSwapBuffers(window); // swap the color buffers
 
-            // Poll for window events. The key callback above will only be
-            // invoked during this call.
-            glfwPollEvents();
+        startTime = System.nanoTime();
+
+        while ( !glfwWindowShouldClose(window) ) {
+
+            delta = (System.nanoTime() - startTime) / 1000000.0f;
+
+            if(delta > (1000/FPS_CAP)) {
+
+                startTime = System.nanoTime();
+
+                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
+                Renderer.loop(delta);
+                glfwSwapBuffers(window); // swap the color buffers
+
+                // Poll for window events. The key callback above will only be
+                // invoked during this call.
+                glfwPollEvents();
+
+            }
 
         }
     }

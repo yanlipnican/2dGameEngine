@@ -8,7 +8,6 @@ import ObjectComponents.BasicController;
 import Entity.Entity;
 import Shaders.Shader;
 import Shaders.TestShader;
-import Util.BitmapLoader;
 import Vectors.vec2f;
 
 import java.util.*;
@@ -41,7 +40,9 @@ public class Renderer {
 
     }
 
-    public static void loop(){
+    public static void loop(float delta){
+
+        System.out.println(1000/delta);
 
         fb.bind();
         fb.clear();
