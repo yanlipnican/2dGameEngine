@@ -6,11 +6,9 @@ layout(location = 1) in vec2 _UV;
 uniform vec2 position;
 
 out vec2 UV;
-out vec2 position_pass;
 
 void main()
 {
     UV = _UV;
-    gl_Position = vec4(_position.x + position.x, _position.y - position.y, 0.0, 1.0);
-    position_pass = _position;
+    gl_Position = vec4(_position.x + position.x, _position.y + position.y , 0.0, 1.0);
 }

@@ -4,6 +4,7 @@ package Renderer; /**
  * in Main class is only window init and handling
  */
 
+import Lights.Light;
 import ObjectComponents.BasicController;
 import Entity.Entity;
 import Shaders.Shader;

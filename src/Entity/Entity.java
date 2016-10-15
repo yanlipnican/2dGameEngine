@@ -19,10 +19,10 @@ import static org.lwjgl.opengl.GL20.*;
 
 public class Entity {
 
-    private vec3f color;
-    private vec2f position;
-    private Shader shader;
-    private Vao VAO;
+    protected vec3f color;
+    protected vec2f position;
+    protected Shader shader;
+    protected Vao VAO;
     private int indicesBufferID;
     private int textureID;
 
@@ -45,18 +45,25 @@ public class Entity {
 
     private List<Component> components = new ArrayList<Component>();
 
-    public Entity(Shader shader, String tex_filename){
+    private void init(){
         color = new vec3f(0.0f, 0.0f, 0.0f);
-        position = new vec2f(1.0f, 1.0f);
-        this.shader = shader;
-        textureID = TextureMap.loadTexture(tex_filename);
+        position = new vec2f(0.0f, 0.0f);
 
         indicesBufferID = Vao.createIntElementBuffer(indices);
-
         VAO = new Vao();
         createQuad();
         VAO.createVBO(texCoords, 1, 2);
+    }
 
+    public Entity(Shader shader, String tex_filename){
+        init();
+        this.shader = shader;
+        textureID = TextureMap.loadTexture(tex_filename);
+    }
+
+    public Entity(Shader shader){
+        init();
+        this.shader = shader;
     }
 
     private void createQuad(){
@@ -127,5 +134,9 @@ public class Entity {
 
     public vec2f getPosition() {
         return position;
+    }
+
+    public void setTexture(int id){
+        textureID = id;
     }
 }

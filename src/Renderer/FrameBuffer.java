@@ -84,6 +84,10 @@ public class FrameBuffer {
 
     }
 
+    public void setShader(Shader shader){
+        this.shader = shader;
+    }
+
     public void bind() {
         glBindFramebuffer(GL_FRAMEBUFFER, bufferID);
         glViewport(0,0,Renderer.width, Renderer.height);
