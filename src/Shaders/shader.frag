@@ -2,10 +2,16 @@
 
 out vec4 color_out;
 
-uniform vec3 color;
+in vec2 UV;
+
+uniform sampler2D renderedTexture;
 
 void main(){
 
-    color_out = vec4(color.xyz , 1.0);
+    vec2 _UV = vec2(UV.x, UV.y);
+
+    vec4 color = texture(renderedTexture, _UV);
+
+    color_out = color;
 
 }

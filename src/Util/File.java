@@ -8,6 +8,7 @@ import java.io.IOException;
 /**
  * Created by lipnican on 09/10/2016.
  */
+
 public class File {
     public static String read(String filename) throws IOException {
         String source = "";

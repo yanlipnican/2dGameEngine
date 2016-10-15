@@ -16,7 +16,7 @@ public class BasicController extends Controller {
 
         color.x += 0.001f;
 
-        super.entity.move(new vec2f(-0.001f, 0.0f));
+        //super.entity.move(new vec2f(-0.001f, 0.0f));
 
         super.entity.setColor(color);
     }

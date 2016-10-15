@@ -8,6 +8,7 @@ import ObjectComponents.BasicController;
 import Entity.Entity;
 import Shaders.Shader;
 import Shaders.TestShader;
+import Util.BitmapLoader;
 import Vectors.vec2f;
 
 import java.util.*;
@@ -27,6 +28,8 @@ public class Renderer {
     private static FrameBuffer fb = new FrameBuffer();
 
     public static void init() {
+
+        //BitmapLoader image = new BitmapLoader("res/images/test.bmp");
 
         Shader shader = new TestShader();
 
