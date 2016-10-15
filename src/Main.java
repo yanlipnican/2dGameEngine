@@ -94,7 +94,6 @@ public class Main {
         GL.createCapabilities();
 
         // Set the clear color
-        glClearColor(0.0f, 0.3f,0.6f, 0.0f);
     }
 
     private long startTime;
@@ -113,7 +112,7 @@ public class Main {
             if(delta > (1000/FPS_CAP)) {
 
                 startTime = System.nanoTime();
-
+                glClearColor(0.2f, 0.5f, 0.5f, 0.0f);
                 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
                 Renderer.loop(delta);
                 glfwSwapBuffers(window); // swap the color buffers

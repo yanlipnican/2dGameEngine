@@ -26,7 +26,7 @@ public class Entity {
     private int indicesBufferID;
     private int textureID;
 
-    private vec2f size = new vec2f(0.5f, 0.6f);
+    protected vec2f size = new vec2f(0.5f, 0.6f);
 
     private float[] quad;
 
@@ -46,7 +46,7 @@ public class Entity {
     private List<Component> components = new ArrayList<Component>();
 
     private void init(){
-        color = new vec3f(0.0f, 0.0f, 0.0f);
+        color = new vec3f(1.0f, 0.0f, 0.0f);
         position = new vec2f(0.0f, 0.0f);
 
         indicesBufferID = Vao.createIntElementBuffer(indices);
@@ -126,6 +126,7 @@ public class Entity {
 
     public void setSize(vec2f size){
         this.size = size;
+        createQuad();
     }
 
     public vec3f getColor() {

@@ -5,6 +5,7 @@ package Renderer; /**
  */
 
 import Lights.Light;
+import Lights.LightFrameBuffer;
 import ObjectComponents.BasicController;
 import Entity.Entity;
 import Shaders.Shader;
@@ -27,10 +28,13 @@ public class Renderer {
     public static float ratio = (float)height/(float)width;
 
     private static FrameBuffer fb = new FrameBuffer();
+    private static LightFrameBuffer lfb =  new LightFrameBuffer();
 
     public static void init() {
 
         //BitmapLoader image = new BitmapLoader("res/images/test.bmp");
+
+        lfb.addLight();
 
         Shader shader = new TestShader();
 
@@ -39,7 +43,7 @@ public class Renderer {
         Entity test3 = new Entity(shader, "res/images/test.png");
 
         test2.setSize(new vec2f(0.8f, 0.9f));
-        test2.setPosition(new vec2f(0.2f, 0.2f));
+        test2.setPosition(new vec2f(0.4f, 0.2f));
 
         test3.setPosition(new vec2f(0.1f, 1.0f));
 
@@ -55,12 +59,14 @@ public class Renderer {
 
         //System.out.println(1000/delta);
 
-        fb.bind();
-        fb.clear();
-
         for(Entity entity : renderQueue){
             entity.update();
         }
+
+        lfb.renderLights();
+
+        fb.bind();
+        fb.clear();
 
         for (Entity entity : renderQueue) {
             entity.render();
@@ -68,7 +74,9 @@ public class Renderer {
 
         bindScreenBuffer();
 
+        // TODO: not render these two buffer but multiply their textures and then render result
         fb.render();
+        lfb.render();
     }
 
     public static void bindScreenBuffer(){

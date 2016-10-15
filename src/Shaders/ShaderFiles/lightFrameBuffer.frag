@@ -11,6 +11,7 @@ void main(){
     vec2 _UV = vec2(UV.x, UV.y);
 
     vec4 color = texture(renderedTexture, _UV);
+
     color_out = color;
 
 }
