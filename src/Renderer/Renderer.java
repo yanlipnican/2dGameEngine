@@ -33,17 +33,26 @@ public class Renderer {
 
         Shader shader = new TestShader();
 
-        Entity test = new Entity(shader);
+        Entity test = new Entity(shader, "res/images/test3.png");
+        Entity test2 = new Entity(shader, "res/images/test3.png");
+        Entity test3 = new Entity(shader, "res/images/test.png");
+
+        test2.setSize(new vec2f(0.8f, 0.9f));
+        test2.setPosition(new vec2f(0.2f, 0.2f));
+
+        test3.setPosition(new vec2f(0.1f, 1.0f));
 
         test.addComponent(new BasicController());
 
         addToRenderQueue(test);
+        addToRenderQueue(test2);
+        addToRenderQueue(test3);
 
     }
 
     public static void loop(float delta){
 
-        System.out.println(1000/delta);
+        //System.out.println(1000/delta);
 
         fb.bind();
         fb.clear();

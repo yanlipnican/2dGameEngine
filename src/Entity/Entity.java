@@ -24,16 +24,11 @@ public class Entity {
     private Shader shader;
     private Vao VAO;
     private int indicesBufferID;
-    private TextureMap texture;
+    private int textureID;
 
-    private vec2f size = new vec2f(0.5f, 0.5f);
+    private vec2f size = new vec2f(0.5f, 0.6f);
 
-    private float[] quad = new float[] {
-            -1.0f, 1.0f,
-            -1.0f + size.x*(Renderer.ratio), 1.0f,// up right
-            -1.0f + size.x*(Renderer.ratio), 1.0f - size.y ,// down right
-            -1.0f, 1.0f - size.y // down left
-    };
+    private float[] quad;
 
     private int[] indices = new int[] {
             0, 1, 2,
@@ -50,18 +45,29 @@ public class Entity {
 
     private List<Component> components = new ArrayList<Component>();
 
-    public Entity(Shader shader){
+    public Entity(Shader shader, String tex_filename){
         color = new vec3f(0.0f, 0.0f, 0.0f);
         position = new vec2f(1.0f, 1.0f);
         this.shader = shader;
-        texture = new TextureMap("res/images/test3.png");
+        textureID = TextureMap.loadTexture(tex_filename);
 
         indicesBufferID = Vao.createIntElementBuffer(indices);
 
         VAO = new Vao();
-        VAO.createVBO(quad, 0, 2);
+        createQuad();
         VAO.createVBO(texCoords, 1, 2);
 
+    }
+
+    private void createQuad(){
+        quad = new float[] {
+                -1.0f, 1.0f,
+                -1.0f + size.x*(Renderer.ratio), 1.0f,// up right
+                -1.0f + size.x*(Renderer.ratio), 1.0f - size.y ,// down right
+                -1.0f, 1.0f - size.y // down left
+        };
+
+        VAO.createVBO(quad, 0, 2);
     }
 
     public void update(){
@@ -80,7 +86,7 @@ public class Entity {
         VAO.bind();
         VAO.enableLocations();
 
-        texture.bind();
+        glBindTexture(GL_TEXTURE_2D, textureID);
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indicesBufferID);
 
@@ -108,6 +114,11 @@ public class Entity {
 
     public void setPosition(vec2f position) {
         this.position = position;
+        createQuad();
+    }
+
+    public void setSize(vec2f size){
+        this.size = size;
     }
 
     public vec3f getColor() {

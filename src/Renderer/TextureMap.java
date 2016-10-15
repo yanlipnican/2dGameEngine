@@ -1,29 +1,26 @@
 package Renderer;
 
-import org.newdawn.slick.opengl.*;
-import org.newdawn.slick.opengl.Texture;
-import org.newdawn.slick.opengl.TextureLoader;
-import org.newdawn.slick.util.ResourceLoader;
+        import org.newdawn.slick.opengl.*;
+        import org.newdawn.slick.opengl.Texture;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.ByteBuffer;
+        import java.io.FileInputStream;
+        import java.io.IOException;
+        import java.io.InputStream;
+        import java.nio.ByteBuffer;
 
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL12.GL_BGR;
+        import static org.lwjgl.opengl.GL11.*;
 
 /**
  * Created by lipnican on 15/10/2016.
  */
+
 public class TextureMap {
 
-    private int ID;
-    private Texture texture;
+    private TextureMap(){};
 
-    public TextureMap(String fileName) {
+    public static int loadTexture(String fileName) {
 
-        ID = glGenTextures();
+        int ID = glGenTextures();
         PNGDecoder decoder = null;
         ByteBuffer buffer = null;
 
@@ -49,10 +46,10 @@ public class TextureMap {
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+        return ID;
     }
 
-    public void bind(){
-        glBindTexture(GL_TEXTURE_2D, ID);
-    }
 
 }
+

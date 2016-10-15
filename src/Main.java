@@ -16,6 +16,7 @@ public class Main {
 
     public static int WIDTH = 640;
     public static int HEIGHT = 420;
+    private static String title = "Concrete2D";
 
 
     public void run() {
@@ -54,7 +55,7 @@ public class Main {
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
         // Create the window
-        window = glfwCreateWindow(WIDTH, HEIGHT, "Hello World!", NULL, NULL);
+        window = glfwCreateWindow(WIDTH, HEIGHT, title, NULL, NULL);
         if ( window == NULL )
             throw new RuntimeException("Failed to create the GLFW window");
 
@@ -62,6 +63,10 @@ public class Main {
         glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
             if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
                 glfwSetWindowShouldClose(window, true); // We will detect this in our rendering loop
+
+            if(key == GLFW_KEY_UP){
+                System.out.println("up");
+            }
         });
 
         // Get the resolution of the primary monitor

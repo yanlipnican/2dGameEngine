@@ -13,7 +13,7 @@ public class TestShader extends Shader {
     private int color_location;
 
     public TestShader() {
-        super("src/Shaders/shader.vertex", "src/Shaders/shader.frag");
+        super("src/Shaders/ShaderFiles/shader.vertex", "src/Shaders/ShaderFiles/shader.frag");
     }
 
 }

@@ -89,6 +89,10 @@ public class FrameBuffer {
         glViewport(0,0,Renderer.width, Renderer.height);
     }
 
+    public int getTextureID(){
+        return textureID;
+    }
+
     private void createQuad() {
         VAO.createVBO(quad, 0, 2);
         VAO.createVBO(texCoords, 1, 2);
