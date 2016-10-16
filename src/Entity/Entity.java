@@ -26,6 +26,9 @@ public class Entity {
     private int indicesBufferID;
     private int textureID;
 
+    private int blendFunction = GL_ONE_MINUS_SRC_ALPHA;
+    private boolean useBlend = true;
+
     protected vec2f size = new vec2f(0.5f, 0.6f);
 
     private float[] quad;
@@ -93,6 +96,11 @@ public class Entity {
         VAO.bind();
         VAO.enableLocations();
 
+        if(useBlend){
+            glEnable (GL_BLEND);
+            glBlendFunc (GL_SRC_ALPHA, blendFunction);
+        }
+
         glBindTexture(GL_TEXTURE_2D, textureID);
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indicesBufferID);
@@ -139,5 +147,13 @@ public class Entity {
 
     public void setTexture(int id){
         textureID = id;
+    }
+
+    public void blend(boolean blend){
+        useBlend = blend;
+    }
+
+    public void setBlendFunction(int blendFunction){
+        this.blendFunction = blendFunction;
     }
 }

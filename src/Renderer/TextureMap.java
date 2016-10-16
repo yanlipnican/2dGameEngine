@@ -37,8 +37,6 @@ public class TextureMap {
             in.close();
 
             glBindTexture(GL_TEXTURE_2D, ID);
-            glEnable (GL_BLEND);
-            glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
             glTexImage2D(GL_TEXTURE_2D, 0,GL_RGBA, decoder.getWidth(), decoder.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
 
         } catch (IOException e) {

@@ -42,10 +42,10 @@ public class Renderer {
         Entity test2 = new Entity(shader, "res/images/test3.png");
         Entity test3 = new Entity(shader, "res/images/test.png");
 
-        test2.setSize(new vec2f(0.8f, 0.9f));
+        test2.setSize(new vec2f(2f, 2f));
         test2.setPosition(new vec2f(0.4f, 0.2f));
 
-        test3.setPosition(new vec2f(0.1f, 1.0f));
+        test3.setPosition(new vec2f(0.8f, 0.7f));
 
         test.addComponent(new BasicController());
 
