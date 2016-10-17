@@ -45,8 +45,8 @@ public class Renderer {
         test2.setSize(new vec2f(1f, 1f));
         test2.setPosition(new vec2f(0.4f, 0.2f));
 
-        test3.setPosition(new vec2f(0.1f, 0.1f));
-        test3.setSize(new vec2f(1.0f, 1.0f));
+        test3.setPosition(new vec2f(0.0f, 0.0f));
+        test3.setSize(new vec2f(2.0f, 2.4f));
 
         test.addComponent(new BasicController());
 

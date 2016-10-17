@@ -46,6 +46,9 @@ public class Light{
 
         glUseProgram(shader.getID());
 
+        glEnable (GL_BLEND);
+        glBlendFunc (GL_SRC_ALPHA, GL_ONE);
+
         shader.setIntensity(intensity);
         shader.setRadius(radius);
         shader.setRatio(Renderer.ratio);
@@ -73,5 +76,16 @@ public class Light{
         this.intensity = intensity;
     }
 
+    public LightShader getShader() {
+        return shader;
+    }
 
+    public vec2f getPosition() {
+        return position;
+    }
+
+    public void move(vec2f position){
+        this.position.x += position.x;
+        this.position.y += position.y * Renderer.ratio;
+    }
 }
