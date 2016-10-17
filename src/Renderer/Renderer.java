@@ -25,7 +25,7 @@ public class Renderer {
 
     public static int width = 640;
     public static int height = 420;
-    public static float ratio = (float)height/(float)width;
+    public static float ratio = (float)width/(float)height;
 
     private static FrameBuffer fb = new FrameBuffer();
     private static LightFrameBuffer lfb =  new LightFrameBuffer();
@@ -42,15 +42,16 @@ public class Renderer {
         Entity test2 = new Entity(shader, "res/images/test3.png");
         Entity test3 = new Entity(shader, "res/images/test.png");
 
-        test2.setSize(new vec2f(2f, 2f));
+        test2.setSize(new vec2f(1f, 1f));
         test2.setPosition(new vec2f(0.4f, 0.2f));
 
-        test3.setPosition(new vec2f(0.8f, 0.7f));
+        test3.setPosition(new vec2f(0.1f, 0.1f));
+        test3.setSize(new vec2f(1.0f, 1.0f));
 
         test.addComponent(new BasicController());
 
-        addToRenderQueue(test);
-        addToRenderQueue(test2);
+        //addToRenderQueue(test);
+        //addToRenderQueue(test2);
         addToRenderQueue(test3);
 
     }

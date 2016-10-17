@@ -3,14 +3,12 @@
 layout(location = 0) in vec2 _position;
 layout(location = 1) in vec2 _UV;
 
-uniform vec2 position;
-
 out vec2 UV;
 out vec2 pass_position;
 
 void main()
 {
     UV = _UV;
-    gl_Position = vec4(_position.x + position.x, _position.y + position.y , 0.0, 1.0);
+    gl_Position = vec4(_position.x, _position.y , 0.0, 1.0);
     pass_position = gl_Position.xy;
 }

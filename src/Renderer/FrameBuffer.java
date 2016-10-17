@@ -2,6 +2,7 @@ package Renderer;
 
 import Shaders.FrameBufferShader;
 import Shaders.Shader;
+import Vectors.vec2f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL20;
 import java.nio.IntBuffer;
@@ -23,6 +24,8 @@ public class FrameBuffer {
     private Vao VAO;
     private Shader shader;
     private int indicesBufferID;
+    private int width = Renderer.width;
+    private int height = Renderer.height;
 
     private float[] quad = new float[] {
             -1.0f, 1.0f,
@@ -55,6 +58,11 @@ public class FrameBuffer {
         drawBuffers();
         createQuad();
 
+    }
+
+    public void setSize(vec2f size){
+        this.width = (int)size.x;
+        this.height = (int)size.y;
     }
 
     public void clear() {
@@ -90,7 +98,7 @@ public class FrameBuffer {
 
     public void bind() {
         glBindFramebuffer(GL_FRAMEBUFFER, bufferID);
-        glViewport(0,0,Renderer.width, Renderer.height);
+        glViewport(0,0,width, height);
     }
 
     public int getTextureID(){

@@ -72,9 +72,9 @@ public class Entity {
     private void createQuad(){
         quad = new float[] {
                 -1.0f, 1.0f,
-                -1.0f + size.x*(Renderer.ratio), 1.0f,// up right
-                -1.0f + size.x*(Renderer.ratio), 1.0f - size.y ,// down right
-                -1.0f, 1.0f - size.y // down left
+                -1.0f + size.x, 1.0f,// up right
+                -1.0f + size.x, 1.0f - size.y *Renderer.ratio,// down right
+                -1.0f, 1.0f - size.y *Renderer.ratio// down left
         };
 
         VAO.createVBO(quad, 0, 2);
@@ -115,7 +115,7 @@ public class Entity {
 
     public void move(vec2f position){
         this.position.x += position.x;
-        this.position.y += position.y;
+        this.position.y += position.y * Renderer.ratio;
     }
 
     public void setColor(vec3f color){
@@ -128,6 +128,7 @@ public class Entity {
     }
 
     public void setPosition(vec2f position) {
+        position.y *= Renderer.ratio;
         this.position = position;
         createQuad();
     }
