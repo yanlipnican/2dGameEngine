@@ -10,12 +10,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 public class Main {
 
-    private static final int FPS_CAP = 120;
+    // never cap more than 400 fps
+    // i learned that hard way (at least on linux)
+    private static final float FPS_CAP = 120;
     // The window handle
     private long window;
 
-    public static int WIDTH = 640;
-    public static int HEIGHT = 420;
+    public static int WIDTH = 1280;
+    public static int HEIGHT = 720;
     private static String title = "Concrete2D";
 
 
@@ -110,6 +112,8 @@ public class Main {
             delta = (System.nanoTime() - startTime) / 1000000.0f;
 
             if(delta > (1000/FPS_CAP)) {
+
+                glfwSetWindowTitle(window, title + " ("+(int)(1000/delta) + "FPS)");
 
                 startTime = System.nanoTime();
                 glClearColor(0.2f, 0.5f, 0.5f, 0.0f);

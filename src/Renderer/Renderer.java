@@ -23,8 +23,8 @@ public class Renderer {
 
     private static List<Entity> renderQueue = new ArrayList<Entity>();
 
-    public static int width = 640;
-    public static int height = 420;
+    public static int width = 1280;
+    public static int height = 720;
     public static float ratio = (float)width/(float)height;
 
     private static FrameBuffer fb = new FrameBuffer();
