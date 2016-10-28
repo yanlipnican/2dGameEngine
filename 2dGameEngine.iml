@@ -3,7 +3,7 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <javadoc-paths>
-      <root url="file://$USER_HOME$/lwjgl/doc" />
+      <root url="jar://$MODULE_DIR$/lib/lwjgl/doc/javadoc.zip!/" />
     </javadoc-paths>
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
