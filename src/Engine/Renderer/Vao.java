@@ -66,7 +66,7 @@ public class Vao {
     }
 
     public static int createIntElementBuffer(int[] elements) {
-        int ID = glGenBuffers();;
+        int ID = glGenBuffers();
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ID);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, elements, GL_STATIC_DRAW);

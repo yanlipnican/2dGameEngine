@@ -1,11 +1,11 @@
 package TestGame;
 
-import Engine.Entity.Entity;
 import Engine.Lights.LightFrameBuffer;
-import Engine.ObjectComponents.BasicController;
 import Engine.Renderer.FrameBuffer;
 import Engine.Shaders.Shader;
 import Engine.Shaders.TestShader;
+import Engine.Shape.Rectangle;
+import Engine.Shape.Shape;
 import Engine.Vectors.vec2f;
 import Engine.Window.Window;
 
@@ -22,11 +22,9 @@ import static org.lwjgl.opengles.GLES20.GL_FRAMEBUFFER;
 
 public class Renderer extends Window{
 
-    private List<Entity> renderQueue = new ArrayList<Entity>();
+    private List<Shape> renderQueue = new ArrayList<Shape>();
 
-    public int width = 1280;
-    public int height = 720;
-    public float ratio = (float)width/(float)height;
+    public float ratio;
 
     private FrameBuffer fb;
     private LightFrameBuffer lfb;
@@ -45,37 +43,23 @@ public class Renderer extends Window{
 
         Shader shader = new TestShader();
 
-        Entity test = new Entity(shader, "res/images/test3.png");
-        Entity test2 = new Entity(shader, "res/images/test3.png");
-        Entity test3 = new Entity(shader, "res/images/test.png");
-
-        test2.setSize(new vec2f(1f, 1f));
-        test2.setPosition(new vec2f(0.4f, 0.2f));
+        Shape test3 = new Rectangle(shader, "res/images/test.png");
 
         test3.setPosition(new vec2f(0.0f, 0.0f));
         test3.setSize(new vec2f(2.0f, 2.4f));
 
-        test.addComponent(new BasicController());
-
-        //addToRenderQueue(test);
-        //addToRenderQueue(test2);
         addToRenderQueue(test3);
-
     }
 
     @Override
     protected void loop() {
-        for(Entity entity : renderQueue){
-            entity.update();
-        }
-
         lfb.renderLights();
 
         fb.bind();
         fb.clear();
 
-        for (Entity entity : renderQueue) {
-            entity.render();
+        for (Shape shape : renderQueue) {
+            shape.render();
         }
 
         bindScreenBuffer();
@@ -86,11 +70,11 @@ public class Renderer extends Window{
 
     private void bindScreenBuffer(){
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        glViewport(0,0,width,height);
+        glViewport(0,0,Window.WIDTH, Window.HEIGHT);
     }
 
-    private void addToRenderQueue(Entity entity){
-        renderQueue.add(entity);
+    private void addToRenderQueue(Shape shape){
+        renderQueue.add(shape);
     }
 
 }

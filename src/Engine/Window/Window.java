@@ -21,8 +21,9 @@ public abstract class Window {
     // The window handle
     private long window;
 
-    public int WIDTH = 1280;
-    public int HEIGHT = 720;
+    public static int WIDTH = 1280;
+    public static int HEIGHT = 720;
+    public static float ratio = (float)WIDTH/(float)HEIGHT;
     private String title = "Concrete2D";
 
     private long startTime;
@@ -31,6 +32,7 @@ public abstract class Window {
     public Window(int width, int height, String title){
         this.WIDTH = width;
         this.HEIGHT = height;
+        this.ratio = (float)WIDTH/(float)HEIGHT;
         this.title = title;
     }
 

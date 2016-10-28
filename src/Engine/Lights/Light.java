@@ -4,6 +4,7 @@ import Engine.Renderer.*;
 import Engine.Shaders.LightShader;
 import Engine.Vectors.vec2f;
 import Engine.Vectors.vec3f;
+import Engine.Window.Window;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL11.GL_BLEND;
@@ -49,7 +50,7 @@ public class Light{
 
         shader.setIntensity(intensity);
         shader.setRadius(radius);
-        shader.setRatio(Renderer.ratio);
+        shader.setRatio(Window.ratio);
         shader.setColor(color);
         shader.setPosition(position);
 
@@ -58,7 +59,7 @@ public class Light{
     }
 
     public void setPosition(vec2f position){
-        position.y *= Renderer.ratio;
+        position.y *= Window.ratio;
         this.position = new vec2f(-1.0f + position.x, 1.0f - position.y);
     }
 
@@ -84,6 +85,6 @@ public class Light{
 
     public void move(vec2f position){
         this.position.x += position.x;
-        this.position.y += position.y * Renderer.ratio;
+        this.position.y += position.y * Window.ratio;
     }
 }
