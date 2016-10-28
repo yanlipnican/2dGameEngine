@@ -1,7 +1,7 @@
-package ObjectComponents;
+package Engine.ObjectComponents;
 
 
-import Entity.Entity;
+import Engine.Entity.Entity;
 
 /**
  * Created by lipnican on 09/10/2016.

@@ -1,9 +1,9 @@
-package Entity;
+package Engine.Entity;
 
-import ObjectComponents.Component;
-import Renderer.*;
-import Shaders.Shader;
-import Vectors.*;
+import Engine.ObjectComponents.Component;
+import Engine.Renderer.*;
+import Engine.Shaders.Shader;
+import Engine.Vectors.*;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,4 @@
-package Shaders;
-
-import Vectors.vec2f;
+package Engine.Shaders;
 
 import static org.lwjgl.opengl.GL20.*;
 
@@ -14,7 +12,7 @@ public class LightShader extends Shader{
     private int ratio_location;
 
     public LightShader() {
-        super("src/Shaders/ShaderFiles/light.vertex", "src/Shaders/ShaderFiles/light.frag");
+        super("src/Engine/Shaders/ShaderFiles/light.vertex", "src/Engine/Shaders/ShaderFiles/light.frag");
 
         intensity_location = glGetUniformLocation(super.getID(), "intensity");
         radius_location = glGetUniformLocation(super.getID(), "radius");

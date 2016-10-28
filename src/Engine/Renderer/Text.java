@@ -1,6 +1,6 @@
-package Renderer;
+package Engine.Renderer;
 
-import Vectors.vec2f;
+import Engine.Vectors.vec2f;
 
 /**
  * Created by lipnican on 15/10/2016.

@@ -1,7 +1,6 @@
-package Renderer;
+package Engine.Renderer;
 
         import org.newdawn.slick.opengl.*;
-        import org.newdawn.slick.opengl.Texture;
 
         import java.io.FileInputStream;
         import java.io.IOException;
@@ -9,7 +8,6 @@ package Renderer;
         import java.nio.ByteBuffer;
 
         import static org.lwjgl.opengl.GL11.*;
-        import static org.lwjgl.opengl.GL14.GL_TEXTURE_LOD_BIAS;
 
 /**
  * Created by lipnican on 15/10/2016.

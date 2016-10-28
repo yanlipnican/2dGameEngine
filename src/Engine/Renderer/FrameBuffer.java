@@ -1,8 +1,8 @@
-package Renderer;
+package Engine.Renderer;
 
-import Shaders.FrameBufferShader;
-import Shaders.Shader;
-import Vectors.vec2f;
+import Engine.Shaders.FrameBufferShader;
+import Engine.Shaders.Shader;
+import Engine.Vectors.vec2f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL20;
 import java.nio.IntBuffer;

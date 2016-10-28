@@ -1,8 +1,8 @@
-package Shaders;
+package Engine.Shaders;
 
-import Util.File;
-import Vectors.vec2f;
-import Vectors.vec3f;
+import Engine.Util.File;
+import Engine.Vectors.vec2f;
+import Engine.Vectors.vec3f;
 
 import java.io.IOException;
 

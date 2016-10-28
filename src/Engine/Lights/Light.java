@@ -1,11 +1,9 @@
-package Lights;
+package Engine.Lights;
 
-import Entity.Entity;
-import Renderer.*;
-import Shaders.LightShader;
-import Shaders.Shader;
-import Vectors.vec2f;
-import Vectors.vec3f;
+import Engine.Renderer.*;
+import Engine.Shaders.LightShader;
+import Engine.Vectors.vec2f;
+import Engine.Vectors.vec3f;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL11.GL_BLEND;

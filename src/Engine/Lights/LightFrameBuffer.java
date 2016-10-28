@@ -1,20 +1,15 @@
-package Lights;
+package Engine.Lights;
 
-import Entity.Entity;
-import Renderer.FrameBuffer;
-import Renderer.Renderer;
-import Shaders.LightFrameBufferShader;
-import Shaders.LightShader;
-import Shaders.Shader;
-import Vectors.vec2f;
-import Vectors.vec3f;
+import Engine.Renderer.FrameBuffer;
+import Engine.Shaders.LightFrameBufferShader;
+import Engine.Shaders.LightShader;
+import Engine.Vectors.vec2f;
+import Engine.Vectors.vec3f;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
-import static org.lwjgl.opengl.GL20.glUseProgram;
 
 /**
  * Created by lipnican on 15/10/2016.

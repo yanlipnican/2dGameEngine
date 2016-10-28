@@ -1,44 +1,40 @@
-import Renderer.Renderer;
-import org.lwjgl.glfw.*;
-import org.lwjgl.opengl.*;
+package Engine.Window;
 
-import static org.lwjgl.glfw.Callbacks.*;
+import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.glfw.GLFWVidMode;
+import org.lwjgl.opengl.GL;
+
+import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL.getCapabilities;
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.system.MemoryUtil.*;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
+import static org.lwjgl.system.MemoryUtil.NULL;
 
-public class Main {
+/**
+ * Created by lipnican on 10/28/16.
+ */
+public abstract class Window {
 
     // never cap more than 400 fps
     // i learned that hard way (at least on linux)
-    private static final float FPS_CAP = 120;
+    private float FPS_CAP = 120;
     // The window handle
     private long window;
 
-    public static int WIDTH = 1280;
-    public static int HEIGHT = 720;
-    private static String title = "Concrete2D";
+    public int WIDTH = 1280;
+    public int HEIGHT = 720;
+    private String title = "Concrete2D";
 
+    private long startTime;
+    private float delta;
 
-    public void run() {
-        try {
-            init();
-            Renderer.init();
-
-            loop();
-
-            // Free the window callbacks and destroy the window
-            glfwFreeCallbacks(window);
-            glfwDestroyWindow(window);
-        } finally {
-            // Terminate GLFW and free the error callback
-            glfwTerminate();
-            glfwSetErrorCallback(null).free();
-        }
+    public Window(int width, int height, String title){
+        this.WIDTH = width;
+        this.HEIGHT = height;
+        this.title = title;
     }
 
-    private void init() {
+    private void Maininit() {
         // Setup an error callback. The default implementation
         // will print the error message in System.err.
         GLFWErrorCallback.createPrint(System.err).set();
@@ -95,13 +91,12 @@ public class Main {
         // bindings available for use.
         GL.createCapabilities();
 
+        init();
+
         // Set the clear color
     }
 
-    private long startTime;
-    private float delta;
-
-    private void loop() {
+    private void Mainloop() {
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
 
@@ -118,9 +113,10 @@ public class Main {
                 startTime = System.nanoTime();
                 glClearColor(0.2f, 0.5f, 0.5f, 0.0f);
                 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
-                Renderer.loop(delta);
-                glfwSwapBuffers(window); // swap the color buffers
 
+                loop();
+
+                glfwSwapBuffers(window); // swap the color buffers
                 // Poll for window events. The key callback above will only be
                 // invoked during this call.
                 glfwPollEvents();
@@ -130,8 +126,37 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) {
-        new Main().run();
+    public void run() {
+        try {
+            Maininit();
+            Mainloop();
+
+            // Free the window callbacks and destroy the window
+            glfwFreeCallbacks(window);
+            glfwDestroyWindow(window);
+        } finally {
+            // Terminate GLFW and free the error callback
+            glfwTerminate();
+            glfwSetErrorCallback(null).free();
+        }
     }
 
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    public int getHeight() {
+        return HEIGHT;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setFPS_CAP(float cap){
+        FPS_CAP = cap;
+    }
+
+    protected abstract void init();
+    protected abstract void loop();
 }

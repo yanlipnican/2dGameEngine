@@ -1,8 +1,7 @@
-package ObjectComponents;
+package Engine.ObjectComponents;
 
-import Entity.Entity;
-import Vectors.vec2f;
-import Vectors.vec3f;
+import Engine.Entity.Entity;
+import Engine.Vectors.vec3f;
 
 /**
  * Created by lipnican on 09/10/2016.

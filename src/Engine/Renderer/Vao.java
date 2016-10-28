@@ -1,4 +1,4 @@
-package Renderer;
+package Engine.Renderer;
 
 import org.lwjgl.BufferUtils;
 
