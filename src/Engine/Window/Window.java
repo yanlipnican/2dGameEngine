@@ -21,10 +21,9 @@ public abstract class Window {
     // The window handle
     private long window;
 
-    public static int WIDTH = 1280;
-    public static int HEIGHT = 720;
-    public static float ratio = (float)WIDTH/(float)HEIGHT;
-    private String title = "Concrete2D";
+    private static int WIDTH;
+    private static int HEIGHT;
+    private String title;
 
     private long startTime;
     private float delta;
@@ -32,8 +31,11 @@ public abstract class Window {
     public Window(int width, int height, String title){
         this.WIDTH = width;
         this.HEIGHT = height;
-        this.ratio = (float)WIDTH/(float)HEIGHT;
         this.title = title;
+    }
+
+    public static float getRatio(){
+        return (float)WIDTH/(float)HEIGHT;
     }
 
     private void Maininit() {
@@ -63,10 +65,6 @@ public abstract class Window {
         glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
             if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
                 glfwSetWindowShouldClose(window, true); // We will detect this in our rendering loop
-
-            if(key == GLFW_KEY_UP){
-                System.out.println("up");
-            }
         });
 
         // Get the resolution of the primary monitor
@@ -121,9 +119,9 @@ public abstract class Window {
                 glfwSwapBuffers(window); // swap the color buffers
                 // Poll for window events. The key callback above will only be
                 // invoked during this call.
-                glfwPollEvents();
-
             }
+
+            glfwPollEvents();
 
         }
     }
@@ -143,11 +141,11 @@ public abstract class Window {
         }
     }
 
-    public int getWidth() {
+    public static int getWidth() {
         return WIDTH;
     }
 
-    public int getHeight() {
+    public static int getHeight() {
         return HEIGHT;
     }
 

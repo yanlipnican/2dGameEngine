@@ -25,8 +25,8 @@ public class FrameBuffer {
     private Vao VAO;
     private Shader shader;
     private int indicesBufferID;
-    private int width = Window.WIDTH;
-    private int height = Window.HEIGHT;
+    private int width = Window.getWidth();
+    private int height = Window.getHeight();
 
     private float[] quad = new float[] {
             -1.0f, 1.0f,
@@ -124,7 +124,7 @@ public class FrameBuffer {
 
         glBindTexture(GL_TEXTURE_2D, textureID);
 
-        glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, Window.WIDTH, Window.HEIGHT, 0,GL_RGB, GL_UNSIGNED_BYTE, 0);
+        glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, width, height, 0,GL_RGB, GL_UNSIGNED_BYTE, 0);
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);

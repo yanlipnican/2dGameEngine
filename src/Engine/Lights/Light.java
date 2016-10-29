@@ -50,7 +50,7 @@ public class Light{
 
         shader.setIntensity(intensity);
         shader.setRadius(radius);
-        shader.setRatio(Window.ratio);
+        shader.setRatio(Window.getRatio());
         shader.setColor(color);
         shader.setPosition(position);
 
@@ -59,7 +59,7 @@ public class Light{
     }
 
     public void setPosition(vec2f position){
-        position.y *= Window.ratio;
+        position.y *= Window.getRatio();
         this.position = new vec2f(-1.0f + position.x, 1.0f - position.y);
     }
 
@@ -85,6 +85,6 @@ public class Light{
 
     public void move(vec2f position){
         this.position.x += position.x;
-        this.position.y += position.y * Window.ratio;
+        this.position.y += position.y * Window.getRatio();
     }
 }

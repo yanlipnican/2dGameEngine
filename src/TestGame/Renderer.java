@@ -28,6 +28,7 @@ public class Renderer extends Window{
 
     private FrameBuffer fb;
     private LightFrameBuffer lfb;
+    Map map;
 
     public Renderer() {
         super(1280, 720, "TestGame");
@@ -45,16 +46,17 @@ public class Renderer extends Window{
 
         Shape test3 = new Rectangle(shader, "res/images/test.png");
 
-        test3.setPosition(new vec2f(0.0f, 0.0f));
-        test3.setSize(new vec2f(2.0f, 2.4f));
+        test3.setPosition(new vec2f(0.2f, 0.2f));
+        test3.setSize(new vec2f(0.2f, 0.2f));
 
         addToRenderQueue(test3);
+        map = new Map(10, 10, 0.2f);
     }
 
     @Override
     protected void loop() {
         lfb.renderLights();
-
+        map.renderTiles();
         fb.bind();
         fb.clear();
 
@@ -62,15 +64,18 @@ public class Renderer extends Window{
             shape.render();
         }
 
+        //map.render();
+
         bindScreenBuffer();
 
         fb.render();
+        map.render();
         lfb.render();
     }
 
     private void bindScreenBuffer(){
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        glViewport(0,0,Window.WIDTH, Window.HEIGHT);
+        glViewport(0,0,Window.getWidth(), Window.getHeight());
     }
 
     private void addToRenderQueue(Shape shape){

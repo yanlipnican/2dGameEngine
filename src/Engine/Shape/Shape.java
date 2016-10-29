@@ -79,7 +79,7 @@ public abstract class Shape {
 
     public void move(vec2f position){
         this.position.x += position.x;
-        this.position.y += position.y * Window.ratio;
+        this.position.y += position.y * Window.getRatio();
     }
 
     public void setColor(vec3f color){
@@ -87,9 +87,8 @@ public abstract class Shape {
     }
 
     public void setPosition(vec2f position) {
-        position.y *= Window.ratio;
+        position.y *= Window.getRatio();
         this.position = position;
-        createShape();
     }
 
     public void setSize(vec2f size){

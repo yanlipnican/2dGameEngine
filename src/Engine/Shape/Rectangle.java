@@ -16,9 +16,6 @@ public class Rectangle extends Shape{
     }
 
     protected void init(){
-
-        System.out.println(Window.WIDTH/Window.HEIGHT);
-
         super.indices = new int[] {
             0, 1, 2,
             2, 3, 0
@@ -37,8 +34,8 @@ public class Rectangle extends Shape{
         super.vertices = new float[] {
                 -1.0f, 1.0f,
                 -1.0f + size.x, 1.0f,// up right
-                -1.0f + size.x, 1.0f - size.y * Window.ratio,// down right
-                -1.0f, 1.0f - size.y * Window.ratio// down left
+                -1.0f + size.x, 1.0f - size.y * Window.getRatio(),// down right
+                -1.0f, 1.0f - size.y * Window.getRatio()// down left
         };
 
         VAO.createVBO(vertices, 0, 2);
