@@ -70,7 +70,7 @@ public class Renderer extends Window{
 
         fb.render();
         map.render();
-        lfb.render();
+       // lfb.render();
     }
 
     private void bindScreenBuffer(){

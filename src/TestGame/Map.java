@@ -18,10 +18,11 @@ public class Map {
     int map[][];
 
     float tileSize;
-    private String texture = "res/images/grass_tile.png";
 
     private Shader shader = new TestShader();
-    private Shape tile = new Rectangle(shader, texture);
+
+    private Shape tile = new Rectangle(shader, "res/images/grass_tile.png");
+    private Shape block = new Rectangle(shader, "res/images/block_tile.png");
 
     private FrameBuffer frameBuffer = new FrameBuffer();
 
@@ -29,6 +30,7 @@ public class Map {
         map = new int[sizeX][sizeY];
         this.tileSize = tileSize;
         tile.setSize(new vec2f(tileSize, tileSize/2.0f));
+        block.setSize(new vec2f(tileSize, tileSize));
     }
 
     public void renderTiles(){
@@ -39,8 +41,13 @@ public class Map {
 
         for (float x = 0; x < map.length; x++){
             for (float y = 0; y < map[0].length; y++){
-                tile.setPosition(new vec2f((x - y) * tileSize/2f + 1, (x + y) * tileSize/4f + 0.2f) );
-                tile.render();
+                if(x == 9 && y == 0){
+                    block.setPosition(new vec2f((x - y) * tileSize / 2f, (x + y) * tileSize / 4f - tileSize/2f));
+                    block.render();
+                } else {
+                    tile.setPosition(new vec2f((x - y) * tileSize / 2f, (x + y) * tileSize / 4f));
+                    tile.render();
+                }
             }
         }
     }
