@@ -116,9 +116,7 @@ public abstract class Window {
 
                 loop();
 
-                glfwSwapBuffers(window); // swap the color buffers
-                // Poll for window events. The key callback above will only be
-                // invoked during this call.
+                glfwSwapBuffers(window);
             }
 
             glfwPollEvents();

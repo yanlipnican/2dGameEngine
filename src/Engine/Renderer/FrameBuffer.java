@@ -81,10 +81,6 @@ public class FrameBuffer {
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indicesBufferID);
 
-        // draw without indices
-        //glDrawArrays(GL_TRIANGLES, 0, quad.length);
-
-        // with indices
         glDrawElements(GL_TRIANGLES, indices.length, GL_UNSIGNED_INT, 0);
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);

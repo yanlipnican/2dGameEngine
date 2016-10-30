@@ -55,6 +55,7 @@ public class Renderer extends Window{
 
     @Override
     protected void loop() {
+
         lfb.renderLights();
         map.renderTiles();
         fb.bind();
@@ -70,7 +71,7 @@ public class Renderer extends Window{
 
         fb.render();
         map.render();
-       // lfb.render();
+        //lfb.render();
     }
 
     private void bindScreenBuffer(){
