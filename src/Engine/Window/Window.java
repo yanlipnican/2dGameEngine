@@ -104,20 +104,21 @@ public abstract class Window {
 
         while ( !glfwWindowShouldClose(window) ) {
 
-            glfwPollEvents();
-
             delta = (System.nanoTime() - startTime) / 1000000.0f;
 
-            startTime = System.nanoTime();
+            if(delta > 1000/FPS_CAP) {
+                glfwPollEvents();
 
-            glfwSetWindowTitle(window, title + " ("+(int)(1000/delta) + "FPS)");
-            glClearColor(0.2f, 0.5f, 0.5f, 0.0f);
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
+                startTime = System.nanoTime();
 
-            loop();
+                glfwSetWindowTitle(window, title + " (" + (int) (1000 / delta) + "FPS)");
+                glClearColor(0.2f, 0.5f, 0.5f, 0.0f);
+                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 
-            glfwSwapBuffers(window);
+                loop();
 
+                glfwSwapBuffers(window);
+            }
         }
     }
 
