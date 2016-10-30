@@ -1,5 +1,6 @@
 package Engine.Lights;
 
+import Engine.RenderObject;
 import Engine.Renderer.*;
 import Engine.Shaders.LightShader;
 import Engine.Vectors.vec2f;
@@ -13,7 +14,7 @@ import static org.lwjgl.opengl.GL20.glUseProgram;
 /**
  * Created by lipnican on 15/10/2016.
  */
-public class Light{
+public class Light extends RenderObject{
 
     private float radius;
     private float intensity;
@@ -21,11 +22,13 @@ public class Light{
     private vec2f position;
     private vec3f color;
     private FrameBuffer fb = new FrameBuffer();
+    private Camera camera;
 
-    public Light(LightShader shader, float radius, float intensity) {
+    public Light(LightShader shader, float radius, float intensity, Camera camera) {
         this.shader = shader;
         setIntensity(intensity);
         setRadius(radius);
+        this.camera = camera;
         fb.setShader(shader);
     }
 
@@ -53,6 +56,7 @@ public class Light{
         shader.setRatio(Window.getRatio());
         shader.setColor(color);
         shader.setPosition(position);
+        shader.setCamera(camera);
 
         fb.render();
 

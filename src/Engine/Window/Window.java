@@ -19,7 +19,7 @@ public abstract class Window {
     // i learned that hard way (at least on linux)
     private float FPS_CAP = 120;
     // The window handle
-    private long window;
+    protected long window;
 
     private static int WIDTH;
     private static int HEIGHT;
@@ -104,22 +104,22 @@ public abstract class Window {
 
         while ( !glfwWindowShouldClose(window) ) {
 
+            glfwPollEvents();
+
             delta = (System.nanoTime() - startTime) / 1000000.0f;
 
             if(delta > (1000/FPS_CAP)) {
 
                 glfwSetWindowTitle(window, title + " ("+(int)(1000/delta) + "FPS)");
-
-                startTime = System.nanoTime();
                 glClearColor(0.2f, 0.5f, 0.5f, 0.0f);
                 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 
                 loop();
 
                 glfwSwapBuffers(window);
-            }
 
-            glfwPollEvents();
+                startTime = System.nanoTime();
+            }
 
         }
     }

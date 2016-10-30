@@ -4,6 +4,8 @@ layout(location = 0) in vec2 _position;
 layout(location = 1) in vec2 _UV;
 
 uniform vec2 position;
+uniform vec2 cameraPosition;
+uniform float cameraZoom;
 
 out vec2 UV;
 out vec2 position_pass;
@@ -11,6 +13,6 @@ out vec2 position_pass;
 void main()
 {
     UV = _UV;
-    gl_Position = vec4(_position.x + position.x, _position.y - position.y, 0.0, 1.0);
+    gl_Position = vec4(_position.x + position.x - cameraPosition.x, _position.y - position.y - cameraPosition.y, 0.0, cameraZoom);
     position_pass = _position;
 }

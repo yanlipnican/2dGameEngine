@@ -1,5 +1,6 @@
 package Engine.Shaders;
 
+import Engine.Renderer.Camera;
 import Engine.Util.File;
 import Engine.Vectors.vec2f;
 import Engine.Vectors.vec3f;
@@ -12,7 +13,6 @@ import static org.lwjgl.opengl.GL20.*;
 /**
  * Created by lipnican on 09/10/2016.
  */
-
 abstract public class Shader {
     private int programID;
     private int fragmentShaderID;
@@ -20,6 +20,8 @@ abstract public class Shader {
 
     private int position_location;
     private int color_location;
+    private int cameraPosition_location;
+    private int cameraZoom_location;
 
     public Shader(String vs_filename, String frag_filename){
 
@@ -53,9 +55,24 @@ abstract public class Shader {
 
             position_location = glGetUniformLocation(programID, "position");
             color_location = glGetUniformLocation(programID, "color");
+            cameraPosition_location = glGetUniformLocation(programID, "cameraPosition");
+            cameraZoom_location = glGetUniformLocation(programID, "cameraZoom");
 
         }
 
+    }
+
+    private void setCameraPosition(vec2f position) {
+        glUniform2f(cameraPosition_location, position.x, position.y);
+    }
+
+    private void setCameraZoom(float zoom){
+        glUniform1f(cameraZoom_location, zoom);
+    }
+
+    public void setCamera(Camera camera){
+        setCameraPosition(camera.getPosition());
+        setCameraZoom(camera.getZoom());
     }
 
     public void setColor(vec3f color){

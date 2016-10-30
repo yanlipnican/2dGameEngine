@@ -1,6 +1,7 @@
 package TestGame;
 
 import Engine.Lights.LightFrameBuffer;
+import Engine.Renderer.Camera;
 import Engine.Renderer.FrameBuffer;
 import Engine.Shaders.Shader;
 import Engine.Shaders.TestShader;
@@ -12,6 +13,7 @@ import Engine.Window.Window;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.glViewport;
 import static org.lwjgl.opengl.GL30.glBindFramebuffer;
 import static org.lwjgl.opengles.GLES20.GL_FRAMEBUFFER;
@@ -29,34 +31,37 @@ public class Renderer extends Window{
     private FrameBuffer fb;
     private LightFrameBuffer lfb;
     Map map;
+    Camera camera;
 
     public Renderer() {
-        super(1280, 720, "TestGame");
+        super(640, 420, "TestGame");
     }
 
     @Override
     protected void init() {
 
-        fb = new FrameBuffer();
-        lfb =  new LightFrameBuffer();
+        camera = new Camera();
 
-        lfb.addLight();
+        fb = new FrameBuffer();
+        //lfb =  new LightFrameBuffer();
+
+//        lfb.addLight();
 
         Shader shader = new TestShader();
 
-        Shape test3 = new Rectangle(shader, "res/images/test.png");
+        Shape test3 = new Rectangle(shader, "res/images/test.png", camera);
 
         test3.setPosition(new vec2f(0.2f, 0.2f));
         test3.setSize(new vec2f(0.2f, 0.2f));
 
         addToRenderQueue(test3);
-        map = new Map(10, 10, 0.2f);
+        map = new Map(10, 10, 0.2f, camera);
     }
 
     @Override
     protected void loop() {
 
-        lfb.renderLights();
+  //      lfb.renderLights();
         map.renderTiles();
         fb.bind();
         fb.clear();
@@ -64,7 +69,20 @@ public class Renderer extends Window{
         for (Shape shape : renderQueue) {
             shape.render();
         }
-
+        glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
+            if ( key == GLFW_KEY_UP ) {
+                camera.move(new vec2f(0, 0.01f));
+            }
+            if ( key == GLFW_KEY_DOWN ){
+                camera.move(new vec2f(0, -0.01f));
+            }
+            if ( key == GLFW_KEY_LEFT ) {
+                camera.move(new vec2f(-0.01f, 0));
+            }
+            if ( key == GLFW_KEY_RIGHT ){
+                camera.move(new vec2f(0.01f, 0));
+            }
+        });
         //map.render();
 
         bindScreenBuffer();

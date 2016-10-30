@@ -71,7 +71,6 @@ public class FrameBuffer {
     }
 
     public void render(){
-
         glUseProgram(shader.getID());
 
         VAO.bind();
@@ -86,7 +85,6 @@ public class FrameBuffer {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
         VAO.disableLocations();
-
     }
 
     public void setShader(Shader shader){

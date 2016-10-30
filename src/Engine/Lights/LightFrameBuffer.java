@@ -1,5 +1,7 @@
 package Engine.Lights;
 
+import Engine.RenderObject;
+import Engine.Renderer.Camera;
 import Engine.Renderer.FrameBuffer;
 import Engine.Shaders.LightFrameBufferShader;
 import Engine.Shaders.LightShader;
@@ -14,39 +16,40 @@ import static org.lwjgl.opengl.GL11.*;
 /**
  * Created by lipnican on 15/10/2016.
  */
-public class LightFrameBuffer {
+public class LightFrameBuffer extends RenderObject{
 
 
     private FrameBuffer fb = new FrameBuffer();
     private List<Light> lights = new ArrayList<Light>();
     private LightFrameBufferShader shader = new LightFrameBufferShader();
+    private Camera camera;
 
-    public LightFrameBuffer(){
+    public LightFrameBuffer(Camera camera){
         fb.setShader(shader);
     }
 
     public void addLight(){
         LightShader shader = new LightShader();
 
-        Light light = new Light(shader, 1f, 0.5f);
+        Light light = new Light(shader, 1f, 0.5f, camera);
         light.setColor(new vec3f(1, 0, 0.4f));
         light.setPosition(new vec2f(0.5f, 0.5f));
 
         lights.add(light);
 
-        light = new Light(shader, 1f, 0.5f);
+        light = new Light(shader, 1f, 0.5f, camera);
         light.setColor(new vec3f(1, 1, 0.4f));
         light.setPosition(new vec2f(0.0f, 0.5f));
 
         lights.add(light);
 
-        light = new Light(shader, 1f, 0.5f);
+        light = new Light(shader, 1f, 0.5f, camera);
         light.setColor(new vec3f(0.4f, 0.4f, 1f));
         light.setPosition(new vec2f(0.9f, 0.5f));
 
         lights.add(light);
 
-        light = new Light(shader, 1f, 0.5f);
+        light = new Light(shader, 1f, 0.5f, camera);
         light.setColor(new vec3f(0.4f, 1.0f, 0.4f));
         light.setPosition(new vec2f(0.4f, 1f));
 

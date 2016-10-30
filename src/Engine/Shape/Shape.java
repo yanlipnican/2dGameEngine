@@ -1,5 +1,7 @@
 package Engine.Shape;
 
+import Engine.RenderObject;
+import Engine.Renderer.Camera;
 import Engine.Renderer.TextureMap;
 import Engine.Renderer.Vao;
 import Engine.Shaders.Shader;
@@ -16,7 +18,7 @@ import static org.lwjgl.opengl.GL20.glUseProgram;
  * Created by lipnican on 10/28/16.
  */
 
-public abstract class Shape {
+public abstract class Shape extends RenderObject{
 
     protected Shader shader;
     protected Vao VAO;
@@ -37,9 +39,11 @@ public abstract class Shape {
     protected abstract void init();
     protected abstract void createShape();
 
-    public Shape(Shader shader, String tex_filename){
-        VAO = new Vao();
+    private Camera camera;
 
+    public Shape(Shader shader, String tex_filename, Camera camera){
+        VAO = new Vao();
+        this.camera = camera;
         init();
         createShape();
 
@@ -56,6 +60,7 @@ public abstract class Shape {
 
         shader.setColor(color);
         shader.setPosition(position);
+        shader.setCamera(camera);
 
         VAO.bind();
         VAO.enableLocations();

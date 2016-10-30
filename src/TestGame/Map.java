@@ -1,5 +1,7 @@
 package TestGame;
 
+import Engine.RenderObject;
+import Engine.Renderer.Camera;
 import Engine.Renderer.FrameBuffer;
 import Engine.Shaders.Shader;
 import Engine.Shaders.TestShader;
@@ -14,19 +16,23 @@ import static org.lwjgl.opengl.GL11.GL_ZERO;
 /**
  * Created by Jan on 10/29/2016.
  */
-public class Map {
+public class Map extends RenderObject{
     int map[][];
 
     float tileSize;
 
     private Shader shader = new TestShader();
 
-    private Shape tile = new Rectangle(shader, "res/images/grass_tile.png");
-    private Shape block = new Rectangle(shader, "res/images/block_tile.png");
+    private Shape tile;
+    private Shape block;
 
     private FrameBuffer frameBuffer = new FrameBuffer();
 
-    public Map(int sizeX, int sizeY, float tileSize) {
+    public Map(int sizeX, int sizeY, float tileSize, Camera camera) {
+
+        block = new Rectangle(shader, "res/images/block_tile.png", camera);
+        tile = new Rectangle(shader, "res/images/grass_tile.png", camera);
+
         map = new int[sizeX][sizeY];
         this.tileSize = tileSize;
         tile.setSize(new vec2f(tileSize, tileSize/2.0f));

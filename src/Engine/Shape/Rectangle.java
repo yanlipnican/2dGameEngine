@@ -1,5 +1,6 @@
 package Engine.Shape;
 
+import Engine.Renderer.Camera;
 import Engine.Shaders.Shader;
 import Engine.Vectors.vec2f;
 import Engine.Vectors.vec3f;
@@ -10,8 +11,8 @@ import Engine.Window.Window;
  */
 public class Rectangle extends Shape{
 
-    public Rectangle(Shader shader, String tex_filename) {
-        super(shader, tex_filename);
+    public Rectangle(Shader shader, String tex_filename, Camera camera) {
+        super(shader, tex_filename, camera);
         init();
     }
 
