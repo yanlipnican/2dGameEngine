@@ -34,7 +34,7 @@ public class Renderer extends Window{
     Camera camera;
 
     public Renderer() {
-        super(640, 420, "TestGame");
+        super(1280, 720, "TestGame");
     }
 
     @Override

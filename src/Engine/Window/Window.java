@@ -108,18 +108,15 @@ public abstract class Window {
 
             delta = (System.nanoTime() - startTime) / 1000000.0f;
 
-            if(delta > (1000/FPS_CAP)) {
+            startTime = System.nanoTime();
 
-                glfwSetWindowTitle(window, title + " ("+(int)(1000/delta) + "FPS)");
-                glClearColor(0.2f, 0.5f, 0.5f, 0.0f);
-                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
+            glfwSetWindowTitle(window, title + " ("+(int)(1000/delta) + "FPS)");
+            glClearColor(0.2f, 0.5f, 0.5f, 0.0f);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 
-                loop();
+            loop();
 
-                glfwSwapBuffers(window);
-
-                startTime = System.nanoTime();
-            }
+            glfwSwapBuffers(window);
 
         }
     }
