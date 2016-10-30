@@ -43,9 +43,9 @@ public class Renderer extends Window{
         camera = new Camera();
 
         fb = new FrameBuffer();
-        //lfb =  new LightFrameBuffer();
+        lfb =  new LightFrameBuffer(camera);
 
-//        lfb.addLight();
+        lfb.addLight();
 
         Shader shader = new TestShader();
 
@@ -61,7 +61,7 @@ public class Renderer extends Window{
     @Override
     protected void loop() {
 
-  //      lfb.renderLights();
+        lfb.renderLights();
         map.renderTiles();
         fb.bind();
         fb.clear();
@@ -82,6 +82,12 @@ public class Renderer extends Window{
             if ( key == GLFW_KEY_RIGHT ){
                 camera.move(new vec2f(0.01f, 0));
             }
+            if( key == GLFW_KEY_D){
+                camera.zoom(0.01f);
+            }
+            if( key == GLFW_KEY_S){
+                camera.zoom(-0.01f);
+            }
         });
         //map.render();
 
@@ -89,7 +95,7 @@ public class Renderer extends Window{
 
         fb.render();
         map.render();
-        //lfb.render();
+        lfb.render();
     }
 
     private void bindScreenBuffer(){

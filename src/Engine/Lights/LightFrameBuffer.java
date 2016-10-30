@@ -25,6 +25,7 @@ public class LightFrameBuffer extends RenderObject{
     private Camera camera;
 
     public LightFrameBuffer(Camera camera){
+        this.camera = camera;
         fb.setShader(shader);
     }
 
@@ -65,18 +66,18 @@ public class LightFrameBuffer extends RenderObject{
         fb.clear();
 
         for(Light light : lights){
-            if(light.getPosition().x < -1.0){
-                direction = true;
-            }
-
-            if(light.getPosition().x > 1.0){
-                direction = false;
-            }
-            if(!direction) {
-                light.move(new vec2f(-0.005f, 0));
-            } else {
-                light.move(new vec2f(0.005f, 0));
-            }
+//            if(light.getPosition().x < -1.0){
+//                direction = true;
+//            }
+//
+//            if(light.getPosition().x > 1.0){
+//                direction = false;
+//            }
+//            if(!direction) {
+//                light.move(new vec2f(-0.005f, 0));
+//            } else {
+//                light.move(new vec2f(0.005f, 0));
+//            }
             light.render();
         }
 

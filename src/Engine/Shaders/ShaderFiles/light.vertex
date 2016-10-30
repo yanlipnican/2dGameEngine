@@ -9,6 +9,6 @@ out vec2 pass_position;
 void main()
 {
     UV = _UV;
-    gl_Position = vec4(_position.x, _position.y , 0.0, 1.0);
+    gl_Position = vec4(_position.x, _position.y, 0.0, 1.0);
     pass_position = gl_Position.xy;
 }
